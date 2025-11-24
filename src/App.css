@@ -72,6 +72,20 @@ body {
   border: 1px solid rgba(255,255,255,0.06);
 }
 
+/* Prevent the cart panel from growing the header; make it scrollable */
+.cart-panel {
+  max-height: 60vh;
+  overflow-y: auto;
+  padding-right: 8px; /* room for scrollbar */
+}
+
+/* Make sure the panel doesn't push the layout when it grows */
+.cart-container { position: relative; }
+
+/* Optional: nicer scrollbar for modern browsers */
+.cart-panel::-webkit-scrollbar { width: 10px; }
+.cart-panel::-webkit-scrollbar-thumb { background: rgba(255,153,0,0.18); border-radius: 6px; }
+
 /* Hero Section */
 .hero {
   position: relative;

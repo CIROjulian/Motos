@@ -43,6 +43,49 @@ body {
   transform: scale(1.1);
 }
 
+/* Cart panel styles to ensure contrast against header */
+.cart-panel {
+  background: linear-gradient(180deg, rgba(17,17,17,0.98), rgba(13,13,13,0.98));
+  color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,153,0,0.08);
+}
+
+.cart-panel .btn-outline-secondary {
+  min-width: 34px;
+  padding: 0 8px;
+}
+
+.cart-panel .text-warning {
+  color: #ffb84d !important;
+}
+
+/* Thumbnail inside the cart panel */
+.cart-thumb {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+/* Prevent the cart panel from growing the header; make it scrollable */
+.cart-panel {
+  max-height: 60vh;
+  overflow-y: auto;
+  padding-right: 8px; /* room for scrollbar */
+}
+
+/* Make sure the panel doesn't push the layout when it grows */
+.cart-container { position: relative; }
+
+/* Optional: nicer scrollbar for modern browsers */
+.cart-panel::-webkit-scrollbar { width: 10px; }
+.cart-panel::-webkit-scrollbar-thumb { background: rgba(255,153,0,0.18); border-radius: 6px; }
+
 /* Hero Section */
 .hero {
   position: relative;

@@ -2,13 +2,49 @@ import { useState } from "react";
 import "./App.css";
 import { db } from "./assets/db";
 import Header from "./componets/Header";
-import Motos from "./componets/motos";
+import Motos from "./componets/Motos";
 
 
 function App() {
 
 
-  const [data,setData] = useState(db);
+  const [data] = useState(db);
+  const [cart, setCart] = useState([]);
+
+  // Add a product to the cart. If already present, increase quantity.
+  function addToCart(product){
+    setCart(prev => {
+      const existing = prev.find(p => p.id === product.id);
+      if(existing){
+        return prev.map(p => p.id === product.id ? {...p, quantity: p.quantity + 1} : p);
+      }
+      return [...prev, {...product, quantity: 1}];
+    });
+  }
+
+  // Remove a product entirely from the cart by id
+  function removeFromCart(productId){
+    setCart(prev => prev.filter(p => p.id !== productId));
+  }
+
+  // Clear the whole cart
+  function clearCart(){
+    setCart([]);
+  }
+
+  // Increase quantity by 1
+  function incrementQuantity(productId){
+    setCart(prev => prev.map(p => p.id === productId ? {...p, quantity: (p.quantity || 0) + 1} : p));
+  }
+
+  // Decrease quantity by 1; remove the item if quantity reaches 0
+  function decrementQuantity(productId){
+    setCart(prev => {
+      return prev
+        .map(p => p.id === productId ? {...p, quantity: (p.quantity || 0) - 1} : p)
+        .filter(p => (p.quantity || 0) > 0);
+    });
+  }
 
 
   
@@ -16,7 +52,13 @@ function App() {
   return (
     <>
       {/* Header */}
-      <Header/>
+      <Header
+        cart={cart}
+        removeFromCart={removeFromCart}
+        clearCart={clearCart}
+        increment={incrementQuantity}
+        decrement={decrementQuantity}
+      />
       
 
       {/* Hero Section */}
@@ -34,10 +76,7 @@ function App() {
         <h2 className="text-center section-title">NUESTRA COLECCIÓN</h2>
 
 
-        {data.map((motos) =>(
-        <Motos motos = {motos}
-        />
-        ))}
+  <Motos motos={data} onAdd={addToCart} />
         
       </main>
 
